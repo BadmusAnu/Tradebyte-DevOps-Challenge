@@ -20,6 +20,8 @@ jobs:
       - run:
           name: Run application
           command: |
+          
+            apk add --update redis
             pip install -r requirements.txt
             python hello.py
           
