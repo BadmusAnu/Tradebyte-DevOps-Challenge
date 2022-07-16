@@ -1,1 +1,31 @@
 version: 2.1
+
+jobs:
+  test:
+    docker:
+      - image: python:3.7-alpine3.11
+    steps:
+      - checkout
+      - run:
+          name: application testing
+          command: |
+            python tests/test.py
+
+
+  build:
+    docker:
+      - image: python:3.7-alpine3.11
+    steps:
+      - checkout
+      - run:
+          name: Run application
+          command: |
+            pip install -r requirements.txt
+            python hello.py
+          
+workflows:
+  default:
+    jobs:
+      - test
+      - build:
+          requires: [test]
