@@ -21,7 +21,6 @@ jobs:
           name: Run application
           command: |
             pip install -r requirements.txt
-            systemctl start redis
             python hello.py
           
 workflows:
