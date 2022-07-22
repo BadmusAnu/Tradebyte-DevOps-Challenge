@@ -5,8 +5,8 @@
   - name: Installing Redis
     apt: name=redis-server state=latest
 
-  - name: Restart Redis Server
-    service: name=redis state=restarted enabled=yes
+  - name: start Redis Server
+    service: name=redis state=started enabled=yes
 
   - name: Install required system packages
     apt:
@@ -51,13 +51,17 @@
     docker_image:
       name: badmusanu/tradebyte
 
-  - name: deploy container
-    docker_container:
-      image: badmusanu/tradebyte
-      name: tradebyte
-      ports:
-        - "8000:80"
-      env_file: .env
+  - name: Install Docker Compose
+    get_url:
+      url: "https://github.com/docker/compose/releases/download/1.28.2/docker-compose-Linux-x86_64"
+      dest: /usr/local/bin/docker-compose
+      mode: u+x,g+x,o+x 
+
+  - name: Create and start services
+    docker_compose:
+        project_src: ../../docker-compose.yml
+    register: output
+
         
         
 
