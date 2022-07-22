@@ -47,8 +47,8 @@
 
   - name: deploy container
     docker_container:
-      image: tradebyte
-      name: tradebyte
+      image: badmusanu/tradebyte
+      name: badmusanu/tradebyte
       state: started
       auto_remove: true
       ports:
