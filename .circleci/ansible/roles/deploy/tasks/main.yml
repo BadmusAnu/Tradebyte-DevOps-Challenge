@@ -1,13 +1,7 @@
   
   - name: Update
     apt: update_cache=yes
-
-  - name: Installing Redis
-    apt: name=redis-server state=latest
-
-  - name: start Redis Server
-    service: name=redis state=started enabled=yes
-
+    
   - name: Install required system packages
     apt:
       pkg:
