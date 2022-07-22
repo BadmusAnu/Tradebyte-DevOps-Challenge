@@ -51,11 +51,6 @@
     docker_image:
       name: badmusanu/tradebyte
 
-  - name: Install Docker Compose for python
-    pip3:
-      name: docker-compose
-
-
   - name: Create and start services
     docker_compose:
         project_src: ../../docker-compose.yml
