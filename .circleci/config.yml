@@ -37,10 +37,6 @@ jobs:
             name: Install Ansible
             command: |
               apk add --update ansible
-        - run:
-            name: Run Playbook and Configure server
-            command: |
-             apk add -update ansible
    
         - run:
             name: Run Playbook and Configure server
@@ -52,5 +48,7 @@ workflows:
   default:
     jobs:
       - test
+      - build:
+         requires: [test] 
       - deploy:
-          requires: [test]
+          requires: [test,build]
