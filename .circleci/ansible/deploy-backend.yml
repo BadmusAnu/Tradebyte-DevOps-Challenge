@@ -12,6 +12,15 @@
     - ansible_python_interpreter: /usr/bin/python3
     - ansible_host_key_checking: False
     - ansible_stdout_callback: yaml
+  
+  environment:
+    ENVIRONMENT: DEV
+    HOST: "{{ lookup('env', 'HOST') }}"
+    PORT: "{{ lookup('env', 'PORT') }}"
+    REDIS_HOST: "{{ lookup('env', 'REDIS_HOST') }}"
+    REDIS_PORT: "{{ lookup('env', 'REDIS_PORT') }}"
+    REDIS_DB: "{{ lookup('env', 'REDIS_DB') }}"
+
 
   roles:
     - deploy
