@@ -51,8 +51,8 @@
     docker_image:
       name: badmusanu/tradebyte
 
-  - name: Install Docker Compose
-    pip:
+  - name: Install Docker Compose for python
+    pip3:
       name: docker-compose
 
 
