@@ -14,16 +14,17 @@ jobs:
 
   deploy:
     docker:
-      - image: python:3.7-alpine3.11
+      - image: ubuntu:18.04
     steps:
       - checkout
       - add_ssh_keys:
           fingerprints: ["b6:f9:09:aa:2d:0c:87:a0:3c:77:5a:4c:1a:3b:23:48"] 
       
       - run:
-          name: Install Ansible
+          name: Install Ansible and Docker
           command: |
-            apk add --update ansible
+            apt install docker
+            apt install ansible
             
       - run:
           name: build application
