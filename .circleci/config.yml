@@ -35,7 +35,7 @@ jobs:
       - run:
           name: build application
           command: |
-            
+            systemctl start docker
             echo $DOCKERHUB_PASS | docker login -u $DOCKERHUB_USER --password-stdin
             docker build -t badmusanu/tradebyte .
             docker push badmusanu/tradebyte 
