@@ -12,18 +12,30 @@ jobs:
             python tests/test.py
 
 
-  build:
+  deploy:
     docker:
       - image: python:3.7-alpine3.11
     steps:
       - checkout
+      - add_ssh_keys:
+          fingerprints: ["b6:f9:09:aa:2d:0c:87:a0:3c:77:5a:4c:1a:3b:23:48"] 
+      
       - run:
-          name: Run application
+          name: Install Ansible
           command: |
-            apk --update add redis
-            redis-server --daemonize yes
-            pip install -r requirements.txt
-            python hello.py
+            apk add --update ansible
+            
+      - run:
+          name: build application
+          command: |
+            docker build -t badmusanu/tradebyte .
+            docker push badmusanu/tradebyte 
+
+      - run:
+          name: Run Playbook and Configure server
+          command: |
+            ansible-playbook -i .circleci/ansible/inventory.txt .circleci/ansible/configure-server.yml        
+
           
 workflows:
   default:
