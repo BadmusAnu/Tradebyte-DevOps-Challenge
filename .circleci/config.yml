@@ -36,7 +36,7 @@ jobs:
           name: build application
           command: |
             
-            echo “$DOCKERHUB_PASS” | docker login -u “$DOCKERHUB_USER” — password-stdin
+            echo $DOCKERHUB_PASS | docker login -u $DOCKERHUB_USER --password-stdin
             docker build -t badmusanu/tradebyte .
             docker push badmusanu/tradebyte 
 
