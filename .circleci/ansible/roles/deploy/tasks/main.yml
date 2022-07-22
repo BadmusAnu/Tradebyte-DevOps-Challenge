@@ -15,12 +15,12 @@
     docker_image:
       name: badmusanu/tradebyte
 
-  - name: deploy nginx docker container
+  - name: deploy container
     docker_container:
       image: tradebyte
       name: tradebyte
       state: started
       auto_remove: true
       ports:
-        - "8080:80"
+        - "8000:80"
 
