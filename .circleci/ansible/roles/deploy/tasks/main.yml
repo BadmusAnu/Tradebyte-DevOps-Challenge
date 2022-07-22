@@ -1,6 +1,6 @@
   
   - name: Update
-    apt: update_cache=yes   
+    apt: update_cache=yes
 
   - name: Installing Redis
     apt: name=redis-server state=latest
@@ -51,4 +51,11 @@
       name: tradebyte
       ports:
         - "8000:80"
+      environment:
+       ENVIRONMENT: DEV
+       HOST: "{{ lookup('env', 'HOST') }}"
+       PORT: "{{ lookup('env', 'PORT') }}"
+       REDIS_HOST: "{{ lookup('env', 'REDIS_HOST') }}"
+       REDIS_PORT: "{{ lookup('env', 'REDIS_PORT') }}"
+       REDIS_DB: "{{ lookup('env', 'REDIS_DB') }}"
 
