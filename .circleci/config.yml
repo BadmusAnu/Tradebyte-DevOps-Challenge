@@ -14,37 +14,16 @@ jobs:
 
   deploy:
     docker:
-      - image: ubuntu:18.04
+      - image: docker:stable
     steps:
       - checkout
-      - add_ssh_keys:
-          fingerprints: ["b6:f9:09:aa:2d:0c:87:a0:3c:77:5a:4c:1a:3b:23:48"] 
-      
-      - run:
-          name: Install Ansible and Docker
-          command: |
-            
-            apt update -y
-            apt install apt-transport-https ca-certificates curl software-properties-common -y
-            curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
-            add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
-            apt-cache policy docker-ce
-            apt install docker-ce -y
-            apt install ansible -y
-            
       - run:
           name: build application
           command: |
-            systemctl start docker
+
             echo $DOCKERHUB_PASS | docker login -u $DOCKERHUB_USER --password-stdin
             docker build -t badmusanu/tradebyte .
             docker push badmusanu/tradebyte 
-
-      - run:
-          name: Run Playbook and Configure server
-          command: |
-            ansible-playbook -i .circleci/ansible/inventory.txt .circleci/ansible/configure-server.yml        
-
           
 workflows:
   default:
