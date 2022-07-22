@@ -5,9 +5,6 @@
   - name: Installing Redis
     apt: name=redis-server state=latest
 
-    notify:
-    - restart redis.service 
-
   - name: Restart Redis Server
     service: name=redis state=restarted enabled=yes
   
