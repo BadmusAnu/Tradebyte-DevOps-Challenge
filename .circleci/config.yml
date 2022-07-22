@@ -41,5 +41,5 @@ workflows:
   default:
     jobs:
       - test
-      - build:
+      - deploy:
           requires: [test]
