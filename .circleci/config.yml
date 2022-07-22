@@ -30,11 +30,13 @@ jobs:
             add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
             apt-cache policy docker-ce
             apt install docker-ce -y
-            apt install ansible
+            apt install ansible -y
             
       - run:
           name: build application
           command: |
+            
+            echo “$DOCKERHUB_PASSW” | docker login -u “$DOCKERHUB_USER” — password-stdin
             docker build -t badmusanu/tradebyte .
             docker push badmusanu/tradebyte 
 
