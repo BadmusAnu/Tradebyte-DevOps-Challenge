@@ -21,6 +21,12 @@
       state: latest
       update_cache: true
 
+  - name: copy env files
+    become: yes
+    copy:
+      src: ../../.env
+      dest: /home/ubuntu/.env
+
   - name: Add Docker GPG apt Key
     apt_key:
       url: https://download.docker.com/linux/ubuntu/gpg
@@ -51,11 +57,5 @@
       name: tradebyte
       ports:
         - "8000:80"
-      environment:
-       ENVIRONMENT: DEV
-       HOST: "{{ lookup('env', 'HOST') }}"
-       PORT: "{{ lookup('env', 'PORT') }}"
-       REDIS_HOST: "{{ lookup('env', 'REDIS_HOST') }}"
-       REDIS_PORT: "{{ lookup('env', 'REDIS_PORT') }}"
-       REDIS_DB: "{{ lookup('env', 'REDIS_DB') }}"
+        
 
